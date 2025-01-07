@@ -64,6 +64,40 @@ def reinitialiser_jeu():
     plateau = [[" " for _ in range(3)] for _ in range(3)]
     joueur_actuel = "X"
 
+def menu():
+    ecran.fill(white)
+    font = pygame.font.Font(None, 24)
+
+    lignes_texte = [
+        "Bienvenue dans le Morpion !",
+        "",
+        "Cliquez ou appuyez sur une touche",
+        "pour commencer la partie."
+    ]
+
+    espacement = 10
+    total_hauteur = len(lignes_texte) * font.get_height() + (len(lignes_texte) - 1) * espacement
+    y_depart = (screenSize - total_hauteur) // 2
+
+    for i, ligne in enumerate(lignes_texte):
+        texte = font.render(ligne, True, lineColor)
+        texte_rect = texte.get_rect(center=(screenSize // 2, y_depart + i * (font.get_height() + espacement)))
+        ecran.blit(texte, texte_rect)
+
+    bouton_rect = pygame.Rect(0, 0, screenSize, screenSize)
+    pygame.display.update()
+
+    attendre_menu(bouton_rect)
+
+def attendre_menu(bouton_rect):
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN or (event.type == pygame.MOUSEBUTTONDOWN and bouton_rect.collidepoint(event.pos)):
+                return
+
 def jeu():
     global joueur_actuel
     ecran.fill(white)
