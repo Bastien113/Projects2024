@@ -59,6 +59,12 @@ def verifier_victoire(joueur):
         return True
     return False
 
+def plateau_plein():
+    for ligne in plateau:
+        if " " in ligne:
+            return False
+    return True
+
 def reinitialiser_jeu():
     global plateau, joueur_actuel
     plateau = [[" " for _ in range(3)] for _ in range(3)]
