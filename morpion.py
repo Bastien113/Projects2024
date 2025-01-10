@@ -46,6 +46,19 @@ def dessiner_O(ligne, col):
     rayon = squareSize // 3
     pygame.draw.circle(ecran, oColor, (centre_x, centre_y), rayon, lineWidth)
 
+def dessiner_ligne_victoire(joueur, ligne, col, direction):
+    couleur = victoryColor
+    if direction == "horizontal":
+        y = ligne * squareSize + squareSize // 2
+        pygame.draw.line(ecran, couleur, (20, y), (screenSize - 20, y), lineWidth)
+    elif direction == "vertical":
+        x = col * squareSize + squareSize // 2
+        pygame.draw.line(ecran, couleur, (x, 20), (x, screenSize - 20), lineWidth)
+    elif direction == "diag1":
+        pygame.draw.line(ecran, couleur, (20, 20), (screenSize - 20, screenSize - 20), lineWidth)
+    elif direction == "diag2":
+        pygame.draw.line(ecran, couleur, (screenSize - 20, 20), (20, screenSize - 20), lineWidth)
+
 def verifier_victoire(joueur):
     for ligne in range(3):
         if plateau[ligne][0] == plateau[ligne][1] == plateau[ligne][2] == joueur:
