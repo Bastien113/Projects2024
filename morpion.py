@@ -66,6 +66,7 @@ def reinitialiser_jeu():
 
 def jeu():
     global joueur_actuel
+    menu()
     ecran.fill(white)
     dessiner_lignes()
 
@@ -82,7 +83,24 @@ def jeu():
                 if plateau[souris_y][souris_x] == " ":
                     plateau[souris_y][souris_x] = joueur_actuel
                     dessiner_XO()
-                    joueur_actuel = "O" if joueur_actuel == "X" else "X"
+                    if verifier_victoire(joueur_actuel):
+                        print(f"Joueur {joueur_actuel} a gagné !")
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        reinitialiser_jeu()
+                        menu()
+                        ecran.fill(BLANC)
+                        dessiner_lignes()
+                    elif plateau_plein():
+                        print("Match nul !")
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        reinitialiser_jeu()
+                        menu()
+                        ecran.fill(BLANC)
+                        dessiner_lignes()
+                    else:
+                        joueur_actuel = "O" if joueur_actuel == "X" else "X"
 
             dessiner_XO()
         pygame.display.update()
